@@ -9,14 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowInspectionComponent implements OnInit {
   inspectionList$!: Observable<any[]>;
-  inpectionTypesList$!: Observable<any[]>;
+  inspectionTypesList$!: Observable<any[]>;
 
-  inpectionTypesList = [];
+  inspectionTypesList: any[] = [];
 
-  inpectionTypesMap : Map<number, string> = new Map();
+  inspectionTypesMap: Map<number, string> = new Map();
   constructor(private inspectionService: InspectionApiService) {}
 
   ngOnInit(): void {
     this.inspectionList$ = this.inspectionService.getInspectionList();
+    this.refreshInspectionTypes()
+  }
+
+  refreshInspectionTypes() {
+    this.inspectionService.getInspectionTypesList().subscribe((data) => {
+      this.inspectionTypesList = data;
+
+      data.forEach((type: any) => {
+        this.inspectionTypesMap.set(type.id, type.name);
+      });
+    });
   }
 }

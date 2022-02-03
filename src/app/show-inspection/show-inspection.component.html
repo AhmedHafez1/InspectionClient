@@ -1,3 +1,12 @@
+<button
+  type="button"
+  class="btn btn-secondary float-end"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Show Inspections
+</button>
+
 <table class="table table-striped">
   <thead>
     <th>Id</th>
@@ -11,7 +20,7 @@
         {{ item.id }}
       </td>
       <td>
-        {{ item.inspectionTypeId }}
+        {{ inspectionTypesMap.get(item.inspectionTypeId) }}
       </td>
       <td>
         {{ item.comment }}
@@ -22,3 +31,30 @@
     </tr>
   </tbody>
 </table>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Inspection Types</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" style="text-align: left">
+        <p *ngFor="let type of inspectionTypesList">
+          {{ type.id }} - {{ type.name }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
